@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<definitions name="ServicioImagenes"
+ targetNamespace="http://tempuri.org/"
+ xmlns:tns="http://tempuri.org/"
+ xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+ xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+ xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+ <types>
+  <xsd:schema targetNamespace="http://tempuri.org/">
+
+    <!-- LOGIN -->
+    <xsd:element name="login">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="email" type="xsd:string"/>
+          <xsd:element name="password" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="loginResponse">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="return" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <!-- REGISTRAR -->
+    <xsd:element name="registrar">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="nombre" type="xsd:string"/>
+          <xsd:element name="email" type="xsd:string"/>
+          <xsd:element name="password" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="registrarResponse">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="return" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <!-- LISTAS -->
+    <xsd:complexType name="ArrayString">
+      <xsd:sequence>
+        <xsd:element name="item" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ArrayBase64">
+      <xsd:sequence>
+        <xsd:element name="item" type="xsd:base64Binary" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:sequence>
+    </xsd:complexType>
+
+    <!-- ENVIAR LOTE -->
+    <xsd:element name="enviar_lote">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="token" type="xsd:string"/>
+          <xsd:element name="nombres" type="tns:ArrayString"/>
+          <xsd:element name="datos" type="tns:ArrayBase64"/>
+          <xsd:element name="transfs" type="tns:ArrayString"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="enviar_loteResponse">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="return" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <!-- CONSULTAR -->
+    <xsd:element name="consultar_progreso">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="token" type="xsd:string"/>
+          <xsd:element name="id_lote" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="consultar_progresoResponse">
+      <xsd:complexType>
+        <xsd:sequence>
+          <xsd:element name="return" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:element>
+
+  </xsd:schema>
+ </types>
+
+ <message name="loginInput"><part name="parameters" element="tns:login"/></message>
+ <message name="loginOutput"><part name="parameters" element="tns:loginResponse"/></message>
+
+ <message name="registrarInput"><part name="parameters" element="tns:registrar"/></message>
+ <message name="registrarOutput"><part name="parameters" element="tns:registrarResponse"/></message>
+
+ <message name="enviarLoteInput"><part name="parameters" element="tns:enviar_lote"/></message>
+ <message name="enviarLoteOutput"><part name="parameters" element="tns:enviar_loteResponse"/></message>
+
+ <message name="consultarInput"><part name="parameters" element="tns:consultar_progreso"/></message>
+ <message name="consultarOutput"><part name="parameters" element="tns:consultar_progresoResponse"/></message>
+
+ <portType name="ServicioImagenesPortType">
+   <operation name="login">
+     <input message="tns:loginInput"/>
+     <output message="tns:loginOutput"/>
+   </operation>
+
+   <operation name="registrar">
+     <input message="tns:registrarInput"/>
+     <output message="tns:registrarOutput"/>
+   </operation>
+
+   <operation name="enviar_lote">
+     <input message="tns:enviarLoteInput"/>
+     <output message="tns:enviarLoteOutput"/>
+   </operation>
+
+   <operation name="consultar_progreso">
+     <input message="tns:consultarInput"/>
+     <output message="tns:consultarOutput"/>
+   </operation>
+ </portType>
+
+ <binding name="ServicioImagenesBinding" type="tns:ServicioImagenesPortType">
+   <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+   <operation name="login">
+     <soap:operation soapAction="login"/>
+     <input><soap:body use="literal"/></input>
+     <output><soap:body use="literal"/></output>
+   </operation>
+
+   <operation name="registrar">
+     <soap:operation soapAction="registrar"/>
+     <input><soap:body use="literal"/></input>
+     <output><soap:body use="literal"/></output>
+   </operation>
+
+   <operation name="enviar_lote">
+     <soap:operation soapAction="enviar_lote"/>
+     <input><soap:body use="literal"/></input>
+     <output><soap:body use="literal"/></output>
+   </operation>
+
+   <operation name="consultar_progreso">
+     <soap:operation soapAction="consultar_progreso"/>
+     <input><soap:body use="literal"/></input>
+     <output><soap:body use="literal"/></output>
+   </operation>
+ </binding>
+
+ <service name="ServicioImagenes">
+   <port name="ServicioImagenesPort" binding="tns:ServicioImagenesBinding">
+     <soap:address location="http://localhost:8000/"/>
+   </port>
+ </service>
+
+</definitions>
