@@ -28,12 +28,12 @@ class ServidorAplicacion:
             nodo = Nodo(cfg["id"], cfg["identificador"], cfg["direccion"], cfg["puerto"])
             if nodo.ping():
                 self.nodos.append(nodo)
-                print(f"[Servidor] ✅ Nodo conectado: {nodo}")
+                print(f"[Servidor]  Nodo conectado: {nodo}")
             else:
-                print(f"[Servidor] ⚠️ Nodo no disponible: {cfg['identificador']} (puerto {cfg['puerto']})")
+                print(f"[Servidor]  Nodo no disponible: {cfg['identificador']} (puerto {cfg['puerto']})")
 
         if not self.nodos:
-            print("[Servidor] ⚠️ Ningún nodo disponible al iniciar. Se reintentará al despachar.")
+            print("[Servidor]  Ningún nodo disponible al iniciar. Se reintentará al despachar.")
             for cfg in NODOS_CONFIG:
                 self.nodos.append(Nodo(cfg["id"], cfg["identificador"], cfg["direccion"], cfg["puerto"]))
 
@@ -117,7 +117,7 @@ class ServidorAplicacion:
         }
 
         self.cola_trabajos.put(lote)
-        print(f"📦 Lote encolado: {id_lote} ({total} imágenes) → IDs BD: {ids_imagenes}")
+        print(f" Lote encolado: {id_lote} ({total} imágenes) → IDs BD: {ids_imagenes}")
         return {"id_lote": id_lote, "ids_imagenes": ids_imagenes}
 
     # ── Consultas ─────────────────────────────────────────────

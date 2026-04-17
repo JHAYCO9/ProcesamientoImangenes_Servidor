@@ -42,6 +42,6 @@ class SOAPHandler(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    print("🔥 SOAP Manual corriendo en http://localhost:8000/?wsdl")
+    print(" SOAP corriendo en http://localhost:8000/?wsdl")
     server = HTTPServer(("0.0.0.0", 8000), SOAPHandler)
     server.serve_forever()
